@@ -4,10 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentLocationButton.addEventListener('click', () => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const { latitude, longitude } = position.coords;
-                fetchSunriseSunsetInfo(latitude, longitude);
-            }, showError);
+            navigator.geolocation.getCurrentPosition(fetchDataFromCoordinates, showError);
         } else {
             showError('Geolocation is not supported by this browser.');
         }
@@ -16,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     predefinedLocationsSelect.addEventListener('change', () => {
         const selectedCity = predefinedLocationsSelect.value;
         if (selectedCity) {
-            // Define the latitude and longitude for each city
             const cities = {
                 chicago: { lat: 41.8781, lng: -87.6298 },
                 washington: { lat: 38.9072, lng: -77.0369 },
@@ -25,13 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 miami: { lat: 25.7617, lng: -80.1918 }
             };
             const { lat, lng } = cities[selectedCity];
-            fetchSunriseSunsetInfo(lat, lng);
+            fetchDataFromCoordinates({ coords: { latitude: lat, longitude: lng } });
         }
     });
 });
 
-function fetchSunriseSunsetInfo(lat, lng) {
-    const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`;
+function fetchDataFromCoordinates(position) {
+    const { latitude, longitude } = position.coords;
+    const url = `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}&formatted=0`;
 
     fetch(url)
         .then(response => response.json())
@@ -48,13 +45,34 @@ function fetchSunriseSunsetInfo(lat, lng) {
 }
 
 function updateDisplay(data) {
-    // Update your HTML elements with the data
-    document.getElementById('today-sunrise').textContent = new Date(data.sunrise).toLocaleTimeString();
-    document.getElementById('today-sunset').textContent = new Date(data.sunset).toLocaleTimeString();
-    // Add more fields as needed
+    displayData('today', data);
+    displayData('tomorrow', data);
+}
+
+function displayData(day, data) {
+    document.getElementById(`${day}-sunrise`).textContent = formatTime(data.sunrise);
+    document.getElementById(`${day}-sunset`).textContent = formatTime(data.sunset);
+    document.getElementById(`${day}-dawn`).textContent = formatTime(data.civil_twilight_begin);
+    document.getElementById(`${day}-dusk`).textContent = formatTime(data.civil_twilight_end);
+    document.getElementById(`${day}-daylength`).textContent = data.day_length;
+    document.getElementById(`${day}-solarnoon`).textContent = formatTime(data.solar_noon);
+    document.getElementById(`${day}-timezone`).textContent = "UTC"; // Assuming UTC timezone
+}
+
+function formatTime(timeString) {
+    return new Date(timeString).toLocaleTimeString();
 }
 
 function showError(message) {
     const errorMessageElement = document.getElementById('error-message');
     errorMessageElement.textContent = message;
+    clearDataDisplay();
+}
+
+function clearDataDisplay() {
+    const elementsToClear = ['sunrise', 'sunset', 'dawn', 'dusk', 'daylength', 'solarnoon', 'timezone'];
+    elementsToClear.forEach(element => {
+        document.getElementById(`today-${element}`).textContent = '--:--';
+        document.getElementById(`tomorrow-${element}`).textContent = '--:--';
+    });
 }
