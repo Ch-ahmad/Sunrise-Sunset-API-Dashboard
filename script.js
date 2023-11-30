@@ -1,3 +1,5 @@
+// JS
+
 document.addEventListener('DOMContentLoaded', () => {
     const currentLocationButton = document.getElementById('current-location');
     const predefinedLocationsSelect = document.getElementById('predefined-locations');
