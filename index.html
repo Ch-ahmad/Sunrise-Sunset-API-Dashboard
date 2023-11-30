@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise Sunset Dashboard</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link your CSS file -->
+    <script src="script.js" defer></script> <!-- Link your JavaScript file -->
+</head>
+<body>
+    <header>
+        <h1>Sunrise and Sunset Times</h1>
+    </header>
+
+    <main>
+        <section id="location-controls">
+            <button id="current-location">Use Current Location</button>
+            <select id="predefined-locations">
+                <option value="">Select a Location</option>
+                <option value="chicago">Chicago</option>
+                <option value="washington">Washington</option>
+                <option value="los_angeles">Los Angeles</option>
+                <option value="las_vegas">Las Vegas</option>
+                <option value="miami">Miami</option>
+            </select>
+        </section>
+
+        <section id="data-display">
+            <div id="today">
+                <h2>Today</h2>
+                <p>Sunrise: <span id="today-sunrise"></span></p>
+                <p>Sunset: <span id="today-sunset"></span></p>
+                <!-- Add more fields as needed -->
+            </div>
+
+            <div id="tomorrow">
+                <h2>Tomorrow</h2>
+                <p>Sunrise: <span id="tomorrow-sunrise"></span></p>
+                <p>Sunset: <span id="tomorrow-sunset"></span></p>
+                <!-- Add more fields as needed -->
+            </div>
+        </section>
+
+        <section id="error-message">
+            <!-- Error messages will be displayed here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>Powered by <a href="https://sunrisesunset.io/api/">Sunrise Sunset API</a></p>
+    </footer>
+</body>
+</html>
