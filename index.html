@@ -6,6 +6,7 @@
     <title>Sunrise Sunset Dashboard</title>
     <link rel="stylesheet" href="style.css"> <!-- Link your CSS file -->
     <script src="script.js" defer></script> <!-- Link your JavaScript file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -25,19 +26,27 @@
             </select>
         </section>
 
-        <section id="data-display">
-            <div id="today">
+        <section id="data-display" class="grid-container">
+            <div id="today" class="data-block">
                 <h2>Today</h2>
-                <p>Sunrise: <span id="today-sunrise"></span></p>
-                <p>Sunset: <span id="today-sunset"></span></p>
-                <!-- Add more fields as needed -->
+                <p>Sunrise: <span id="today-sunrise">--:--</span></p>
+                <p>Sunset: <span id="today-sunset">--:--</span></p>
+                <p>Dawn: <span id="today-dawn">--:--</span></p>
+                <p>Dusk: <span id="today-dusk">--:--</span></p>
+                <p>Day Length: <span id="today-daylength">--:--</span></p>
+                <p>Solar Noon: <span id="today-solarnoon">--:--</span></p>
+                <p>Time Zone: <span id="today-timezone">---</span></p>
             </div>
 
-            <div id="tomorrow">
+            <div id="tomorrow" class="data-block">
                 <h2>Tomorrow</h2>
-                <p>Sunrise: <span id="tomorrow-sunrise"></span></p>
-                <p>Sunset: <span id="tomorrow-sunset"></span></p>
-                <!-- Add more fields as needed -->
+                <p>Sunrise: <span id="tomorrow-sunrise">--:--</span></p>
+                <p>Sunset: <span id="tomorrow-sunset">--:--</span></p>
+                <p>Dawn: <span id="tomorrow-dawn">--:--</span></p>
+                <p>Dusk: <span id="tomorrow-dusk">--:--</span></p>
+                <p>Day Length: <span id="tomorrow-daylength">--:--</span></p>
+                <p>Solar Noon: <span id="tomorrow-solarnoon">--:--</span></p>
+                <p>Time Zone: <span id="tomorrow-timezone">---</span></p>
             </div>
         </section>
 
